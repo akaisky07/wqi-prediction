@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Water Quality Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+    /* Legal links in the footer */
+.legal-links a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.legal-links a:hover {
+    text-decoration: underline;
+}
+        /* Add CSS styles for centering the form */
+        /* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set a background color for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation panel styling */
+nav ul {
+    background-color: #333;
+    list-style-type: none;
+    text-align: center;
+    padding: 10px 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main container styling */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Form and table box styling */
+.form-table-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* Form styling */
+form {
+    text-align: left;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Submit button styling */
+input[type="submit"] {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #555;
+}
+
+/* Data table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+table th {
+    background-color: #333;
+    color: white;
+}
+
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+        #add-data {
+            text-align: center;
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        #add-data label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px; /* Increase font size for label */
+            text-align: center;
+        }
+
+        #add-data input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            -moz-appearance: textfield; /* Remove increase and decrease buttons for Firefox */
+        }
+
+        #add-data input[type="number"]::-webkit-inner-spin-button,
+        #add-data input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        #add-data input[type="submit"] {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        #add-data input[type="submit"]:hover {
+            background-color: #555;
+        }
+        
+        /* Style the delete button */
+        #data-list table a.delete-button {
+            text-decoration: none;
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        #data-list table a.delete-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Water Quality Data</h1>
+    </header>
+
+    <!-- Navigation Panel -->
+    <nav>
+        <ul>
+            <li><a href="https://surmariverwaterquality.com/">Home</a></li>
+            <li><a href="https://surmariverwaterquality.com/app">Predictor</a></li>
+            <li><a href="https://surmariverwaterquality.com/data.html">Add Data</a></li>
+            <li><a href="https://surmariverwaterquality.com/quality.html">Quality Classification</a></li>
+            <li><a href="https://surmariverwaterquality.com/about.html">About Us</a></li>
+            <li><a href="https://surmariverwaterquality.com/contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="add-data">
+            <h2>Add New Data</h2>
+            <form id="add-form">
+            <br>
+                <label for="wqi">Water Quality Index (WQI):</label>
+                <input type="number" id="wqi-input" step="0.01" required><br>
+
+                <input type="submit" value="Add">
+            </form>
+        </section>
+
+        <section id="data-list">
+        <br>
+            <h2>Data List</h2>
+            <table id="data-table">
+                <tr>
+                    <th>WQI</th>
+                    <th>Timestamp</th>
+                    <th>Delete</th>
+                </tr>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-media">
+            <h3>Connect with Us:</h3>
+            <a href="https://www.facebook.com/hasansau1705028?mibextid=eBUYbo" target="_blank"><img width="48" height="48" src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook"/></a>
+            <a href="https://twitter.com/your-monitoring-body" target="_blank"><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/twitterx--v1.png" alt="X"/></a>
+            <a href="https://www.instagram.com/your-monitoring-body" target="_blank"><img width="48" height="48" src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram"/></a>
+        </div>
+        <div class="legal-links">
+            <h3>Copyright @ 2023 Shah Md Abul Hasan</h3><br>
+            <a href="/terms-of-use">Terms of Use</a> | <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script>
+        // Function to add data to the table
+        function addData(wqi, timestamp) {
+            const table = document.getElementById("data-table");
+            const row = table.insertRow(1); // Insert at the beginning
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const cell3 = row.insertCell(2);
+            cell1.innerHTML = wqi;
+            cell2.innerHTML = timestamp;
+            cell3.innerHTML = `<a href="#" class="delete-button">Delete</a>`;
+        }
+
+        // Function to handle form submission
+        document.getElementById("add-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const wqi = parseFloat(document.getElementById("wqi-input").value);
+            if (!isNaN(wqi)) {
+                const timestamp = new Date().toLocaleString();
+                addData(wqi, timestamp);
+                // Clear the input field
+                document.getElementById("wqi-input").value = "";
+            }
+        });
+
+        // Function to handle delete button click
+        document.getElementById("data-table").addEventListener("click", function (e) {
+            if (e.target && e.target.classList.contains("delete-button")) {
+                e.preventDefault();
+                e.target.closest("tr").remove();
+            }
+        });
+    </script>
+</body>
+</html>
+
